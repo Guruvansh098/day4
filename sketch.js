@@ -41,20 +41,14 @@ function setup(){
 
 	engine = Engine.create();
 	world = engine.world;
-  //creating the canvas of width 600 and height 600. 
-  
-  
-  //Creating the player, tracks, startImage and groups.
-  player = createSprite(300,500,20,20);
+  ball=new Ball(800,600)
+  //player = createSprite(300,500,20,20);
 // player.addAnimation("player",ball);
   //player.visible = false;
   //player.shapeColor=("red")
  // player.scale=0.2      
-   /*ball=Bodies.circle(300,500,10,{isStatatic:false,restitution:0.2,friction:1})
-   World.add(world,ball)
-  coinRand = Math.round(random(1,3));
-  energyRand = Math.round(random(1,3));
-  bombRand = Math.round(random(1,3));*/
+ tile1=new Titles(600,500)
+ tile2=new Titles(1000,500)
   
   
   start = createSprite(400,290,30,30)
@@ -86,7 +80,7 @@ function draw() {
 //  player.x=ball.position.x 
  // player.y=ball.position.y
   //Calling the functions for the rails
-  tiles();
+  //tiles();
   
   score = score + Math.round(getFrameRate()/60);
   
@@ -96,72 +90,20 @@ function draw() {
     }   
   } else if (gameState === PLAY){
     start.destroy();
-   // player.visible = true;
-  /*   if(keyIsDown("UP_ARROW")){
-  for (var i = 0; i < counter; i++) {
-    var temp=tilesgroup.get(i);
-   // text(i, temp.x, temp.y);
-  }   
-   
-      player.x=tilesgroup.x                     
-    player.y=tilesgroup.y
-  }*/
+  tile1.display()
+  tile2.display()
+  ball.display()
  //   if(mousePressedOver(tilesgroup)){
   //   player.x=mouseX                     
   //  player.y=mouseY
 //Matter.Body.setPosition(ball.body,ball.body.position,{x:mouseX,y:mouseY})
 // }
-   //Selecting random things to spawn it
-  /* var select_object = Math.round(random(1,3));
-   if(World.frameCount % 30 == 0){
-     if(select_object == 1){
-       coin();
-     }
-     else if(select_object == 2){
-       bomb();
-     }
-     else{
-       energy();
-     }
-   }*/
    
-    
  
 
-    //if(player.x == 300||player.x == 500||player.x == 100){
-     // player.velocityX = 0;
-   // } 
-
-    if(keyDown(RIGHT_ARROW)){
-    //  player.x=player.x + 15;
-    player.visible=false
-    player.x=tilesgroup.x
-    player.visible=true
-    }
-
-    if(keyDown(LEFT_ARROW)&&player.x>100){
-      player.velocityX = -8;
-    }
-    if(keyDown(UP_ARROW)){
-      player.velocityY = -50;
-    }
     
-    /*if(coinGp.isTouching(player)){
-      coinGp.destroyEach();
-    }
-    
-    if(bombGp.isTouching(player)){
-      gameState = END;
-    }
-    
-    if(energyGp.isTouching(player)){
-      energyGp.destroyEach();
-    }*/
   }  else if (gameState === END){
-     player.destroy();
-     //coinGp.destroyEach();
-    // bombGp.destroyEach();
-     //energyGp.destroyEach();
+    
    
     
      background(0);
@@ -191,4 +133,10 @@ function tiles(){
     tilesgroup.add(tile)
     counter++
   }
+}
+function keyPressed()
+{
+  if(keyCode32){
+    Matter.Body.setPosition(ball.body,ball.body.position,{x:tile1.x,y:tile1.y})
+ }
 }
